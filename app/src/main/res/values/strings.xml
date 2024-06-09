@@ -1,0 +1,23 @@
+<resources>
+
+    <string name="app_name">RentingCar</string>
+    <string name="open">Open RentingCar</string>
+    <string name="close">close RentingCar </string>
+    <string name="nameforSinup">Name</string>
+    <string name="sinupTiltle">SinUp</string>
+    <string name="address_city_SignUp">Address(City)</string>
+    <string name="Useremail_Signup">Email</string>
+    <string name="your_idSiginUp">Your ID</string>
+    <string name="passwordUserforsignup">Password</string>
+    <string name="username_User_Signup">Username</string>
+    <string name="your_id">Your ID</string>
+    <string name="update">Update</string>
+    <string name="TiltleAddCar">Add Car</string>
+    <string name="modelcar">Model</string>
+    <string name="descriptionCar">Description</string>
+    <string name="make_dataCar">Make_Data</string>
+    <string name="num_availableCars">Num Available</string>
+    <string name="add_new_car">Add New car</string>
+    <string name="ratingCar">Rating</string>
+    <string name="priceCar">Price</string>
+</resources>
