@@ -29,7 +29,7 @@ public class UpdateUserActivity extends BaseActivity {
 
     private EditText editTextID, editTextUsername, editTextEmail, editTextAddress, editTextPassword;
     private Button buttonUpdate;
-    private ProgressDialog progressDialog;
+    private ProgressDialog progressDialog ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

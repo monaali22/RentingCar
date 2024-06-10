@@ -13,11 +13,16 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
 
+    Button b ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+
+        b = findViewById(R.id.button2);
+        Intent intent0 = new Intent(MainActivity.this, UserLoginActivity.class);
+        startActivity(intent0);
 
 
     }
