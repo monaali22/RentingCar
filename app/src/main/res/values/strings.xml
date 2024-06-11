@@ -20,4 +20,6 @@
     <string name="add_new_car">Add New car</string>
     <string name="ratingCar">Rating</string>
     <string name="priceCar">Price</string>
+    <string name="navigation_drawer_open" />
+    <string name="navigation_drawer_close" />
 </resources>

@@ -100,7 +100,7 @@ public class AdminLodin extends AppCompatActivity implements View.OnClickListene
                         );
 
                         Toast.makeText(getApplicationContext(), "Admin login successful", Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(AdminLodin.this, MainActivity.class));
+                        startActivity(new Intent(AdminLodin.this, MainActivityAdmin.class));
                         finish();
                     } else {
                         Toast.makeText(getApplicationContext(), obj.getString("message"), Toast.LENGTH_LONG).show();
