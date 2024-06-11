@@ -64,6 +64,10 @@ public class BaseActivityAdmin extends AppCompatActivity implements NavigationVi
             logout();
             return true;
         }
+        else if (itemId == R.id.nav_report) {
+          //  startActivity(new Intent(this, ReportActivity.class));
+            return true;
+        }
 
         return false;
     }
