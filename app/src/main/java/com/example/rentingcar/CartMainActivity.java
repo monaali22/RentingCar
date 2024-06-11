@@ -119,8 +119,12 @@ public class CartMainActivity extends BaseActivity {
                                 int make_date = jsonObject.getInt("make_date");
 
 
-                                // Create a Car object
-                                Car car = new Car(id, model , price , make_date );
+                                double totalPrice = jsonObject.getDouble("total_price");
+
+                                // Create a Car object with total price
+                                Car car = new Car(id, model, price, make_date);
+                                car.setTotalPrice(totalPrice);
+
                                 // Add the car object to the list
                                 carList.add(car);
                             }

@@ -6,11 +6,22 @@ public class Car {
 
     private double price;
     private int make_date;
+
+    private double totalPrice; // New field for total price
+
     public Car(int id, String model , double price , int make_date) {
         this.price = price;
         this.id = id;
         this.model = model;
         this.make_date = make_date;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public int getId() {
@@ -24,7 +35,7 @@ public class Car {
     @Override
     public String toString() {
 
-        return "Car Model: " + model + "\n\nCare Make Date : " + make_date+"\n\n"+"Price for your booking : "+price+"\n\n";
+        return "Car Model: " + model + "\n\nCare Make Date : " + make_date+"\n\n"+"Price for your booking : "+totalPrice+"\n\n";
     }
 
     public String getModel() {

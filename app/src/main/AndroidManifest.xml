@@ -17,6 +17,12 @@
         android:theme="@style/Theme.RentingCar"
         tools:targetApi="31">
         <activity
+            android:name=".Add_AdminActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminLodin"
+            android:exported="false" />
+        <activity
             android:name=".BaseActivity"
             android:exported="false" />
         <activity

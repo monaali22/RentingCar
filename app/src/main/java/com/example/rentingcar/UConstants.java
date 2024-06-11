@@ -10,6 +10,10 @@ public class UConstants {
     public static final String URL_BOOKED_CARS = ROOT_URL + "getBookedCars.php";
     public static final String URL_Delete_BOOKED_CARS = ROOT_URL + "deleteBooking.php";
 
+    public static  final String URL_REGISTERAdmin = ROOT_URL+"registerAdmin.php";
+
+    public static  final String URL_AdminLOGIN = ROOT_URL+"loginAdmins.php";
+
 
 
 

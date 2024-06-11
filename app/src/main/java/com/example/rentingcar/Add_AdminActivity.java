@@ -1,5 +1,6 @@
 package com.example.rentingcar;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,8 +12,10 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -29,7 +32,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UserRegistrationActivity extends AppCompatActivity implements View.OnClickListener {
+public class Add_AdminActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText editTextID, editTextUsername, editTextEmail, editTextAddress, editTextPassword;
     private Button buttonRegister;
     private ProgressDialog progressDialog;
@@ -38,14 +41,14 @@ public class UserRegistrationActivity extends AppCompatActivity implements View.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_user_registration);
+        setContentView(R.layout.activity_add_admin);
 
         // Initialize the EditText fields
-        editTextID = findViewById(R.id.userSignupID);
-        editTextUsername = findViewById(R.id.UserSignupName);
-        editTextEmail = findViewById(R.id.UserSignupEmail);
-        editTextAddress = findViewById(R.id.UserSignupAddress);
-        editTextPassword = findViewById(R.id.UserSignupPassword);
+        editTextID = findViewById(R.id.adminSignupID);
+        editTextUsername = findViewById(R.id.AdminSignupName);
+        editTextEmail = findViewById(R.id.AdminSignupEmail);
+        editTextAddress = findViewById(R.id.AdminSignupAddress);
+        editTextPassword = findViewById(R.id.AdminSignupPassword);
 
         // Initialize the Button and ensure it is cast correctly
         buttonRegister = findViewById(R.id.button);
@@ -90,16 +93,16 @@ public class UserRegistrationActivity extends AppCompatActivity implements View.
         }
     }
 
-    private void registerUser() {
+    private void registerAdmin() {
         final String ID = editTextID.getText().toString().trim();
         final String userName = editTextUsername.getText().toString().trim();
         final String email = editTextEmail.getText().toString().trim();
         final String address = editTextAddress.getText().toString().trim();
         final String password = editTextPassword.getText().toString().trim();
 
-        progressDialog.setMessage("Registering User...");
+        progressDialog.setMessage("Registering Admin...");
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, UConstants.URL_REGISTER,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, UConstants.URL_REGISTERAdmin,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -111,29 +114,14 @@ public class UserRegistrationActivity extends AppCompatActivity implements View.
                             String message = jsonObject.getString("message");
 
                             // Show the message in an AlertDialog
-                            AlertDialog.Builder builder = new AlertDialog.Builder(UserRegistrationActivity.this);
+                            AlertDialog.Builder builder = new AlertDialog.Builder(Add_AdminActivity.this);
                             builder.setMessage(message);
                             builder.setPositiveButton("OK", (dialog, which) -> {
-                                if (error) {
-                                    // If there is an error, check if it's because the account already exists
-                                    if (message.equalsIgnoreCase("Account already exists")) {
-                                        // Open UserLoginActivity if the account already exists
-                                        Intent intent = new Intent(UserRegistrationActivity.this, UserLoginActivity.class);
-                                        startActivity(intent);
-                                    }
-                                } else {
-                                    // Save the registered user's information
-                                    SharedPrefUserManager.getInstance(getApplicationContext()).userLogin(
-                                            ID,
-                                            userName,
-                                            email,
-                                            address,
-                                            password
-                                    );
-
-                                    // Open UpdateUserActivity if registration is successful
-                                    Intent intent = new Intent(UserRegistrationActivity.this, UserActivity.class);
+                                if (!error) {
+                                    // If registration is successful, open LoginActivity
+                                    Intent intent = new Intent(Add_AdminActivity.this, MainActivity.class);
                                     startActivity(intent);
+                                    finish(); // Close the registration activity
                                 }
                             });
                             AlertDialog dialog = builder.create();
@@ -181,7 +169,9 @@ public class UserRegistrationActivity extends AppCompatActivity implements View.
     @Override
     public void onClick(View v) {
         if (v == buttonRegister) {
-            registerUser();
+            registerAdmin();
         }
     }
+
+
 }
