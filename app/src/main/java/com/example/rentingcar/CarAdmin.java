@@ -1,27 +1,26 @@
 package com.example.rentingcar;
 
-
 public class CarAdmin {
     private int id;
-    private String name;
-    private String description;
+    private String model;
+    private String make_date;
     private double price;
-    private int state;
-    private String imageUrl;
-    private int numberOfCars;
+    private String image_url;
+    private String description;
+    private double rating;
+    private int num_available;
 
-    // Constructor
-    public CarAdmin(int id, String name, String description, double price, int state, String imageUrl, int numberOfCars) {
+    public CarAdmin(int id, String model, String make_date, double price, String image_url, String description, double rating, int num_available) {
         this.id = id;
-        this.name = name;
-        this.description = description;
+        this.model = model;
+        this.make_date = make_date;
         this.price = price;
-        this.state = state;
-        this.imageUrl = imageUrl;
-        this.numberOfCars = numberOfCars;
+        this.image_url = image_url;
+        this.description = description;
+        this.rating = rating;
+        this.num_available = num_available;
     }
 
-    // Getters and Setters
     public int getId() {
         return id;
     }
@@ -30,20 +29,20 @@ public class CarAdmin {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getModel() {
+        return model;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setModel(String model) {
+        this.model = model;
     }
 
-    public String getDescription() {
-        return description;
+    public String getMake_date() {
+        return make_date;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setMake_date(String make_date) {
+        this.make_date = make_date;
     }
 
     public double getPrice() {
@@ -54,27 +53,36 @@ public class CarAdmin {
         this.price = price;
     }
 
-    public int getState() {
-        return state;
+    public String getImage_url() {
+        return image_url;
     }
 
-    public void setState(int state) {
-        this.state = state;
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getDescription() {
+        return description;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public int getNumberOfCars() {
-        return numberOfCars;
+    public double getRating() {
+        return rating;
     }
 
-    public void setNumberOfCars(int numberOfCars) {
-        this.numberOfCars = numberOfCars;
+    public void setRating(double rating) {
+        this.rating = rating;
     }
+
+    public int getNum_available() {
+        return num_available;
+    }
+
+    public void setNum_available(int num_available) {
+        this.num_available = num_available;
+    }
+// Getters and Setters
 }

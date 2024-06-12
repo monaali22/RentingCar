@@ -1,6 +1,5 @@
 package com.example.rentingcar;
 
-
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -19,8 +18,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class MainActivityAdmin extends BaseActivityAdmin {
-    private EditText searchEditText;
-    private RecyclerView recyclerView;
     public ArrayList<CarAdmin> carList = new ArrayList<>();
     private CarAdapter adapter;
     private RequestQueue queue;
@@ -28,11 +25,11 @@ public class MainActivityAdmin extends BaseActivityAdmin {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getLayoutInflater().inflate(R.layout.activity_main, findViewById(R.id.content_frame));
+        getLayoutInflater().inflate(R.layout.activity_mainadmin, findViewById(R.id.content_frame));
 
         // Initialize views
-        searchEditText = findViewById(R.id.searchEditText);
-        recyclerView = findViewById(R.id.recyclerView);
+        EditText searchEditText = findViewById(R.id.searchEditText);
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new CarAdapter(this, carList);
@@ -55,8 +52,7 @@ public class MainActivityAdmin extends BaseActivityAdmin {
                 if (!query.isEmpty()) {
                     searchCars(query);
                 } else {
-                    carList.clear(); // Clear the list if the search query is empty
-                    adapter.notifyDataSetChanged();
+                    fetchDataFromServer();
                 }
             }
 
@@ -74,17 +70,19 @@ public class MainActivityAdmin extends BaseActivityAdmin {
                     @Override
                     public void onResponse(JSONArray response) {
                         try {
+                            carList.clear(); // Clear existing data
                             for (int i = 0; i < response.length(); i++) {
                                 JSONObject jsonObject = response.getJSONObject(i);
-                                int id = jsonObject.getInt("ID");
-                                String carName = jsonObject.getString("carName");
-                                String description = jsonObject.getString("Description");
-                                double price = jsonObject.getDouble("Price");
-                                int state = jsonObject.getInt("State");
-                                String imageUrl = jsonObject.getString("imageUrl");
-                                int numberOfCars = jsonObject.getInt("numberOfCars");
+                                int id = jsonObject.getInt("id");
+                                String model = jsonObject.getString("model");
+                                String make_date = jsonObject.getString("make_date");
+                                double price = jsonObject.getDouble("price");
+                                String image_url = jsonObject.getString("image_url");
+                                String description = jsonObject.getString("description");
+                                double rating = jsonObject.getDouble("rating");
+                                int num_available = jsonObject.getInt("num_available");
 
-                                CarAdmin car = new CarAdmin(id, carName, description, price, state, imageUrl, numberOfCars);
+                                CarAdmin car = new CarAdmin(id, model, make_date, price, image_url, description, rating, num_available);
                                 carList.add(car);
                             }
                             adapter.notifyDataSetChanged(); // Notify adapter about data change
@@ -112,19 +110,20 @@ public class MainActivityAdmin extends BaseActivityAdmin {
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        carList.clear(); // Clear existing data
                         try {
+                            carList.clear(); // Clear existing data
                             for (int i = 0; i < response.length(); i++) {
                                 JSONObject jsonObject = response.getJSONObject(i);
-                                int id = jsonObject.getInt("ID");
-                                String carName = jsonObject.getString("carName");
-                                String description = jsonObject.getString("Description");
-                                double price = jsonObject.getDouble("Price");
-                                int state = jsonObject.getInt("State");
-                                String imageUrl = jsonObject.getString("imageUrl");
-                                int numberOfCars = jsonObject.getInt("numberOfCars");
+                                int id = jsonObject.getInt("id");
+                                String model = jsonObject.getString("model");
+                                String make_date = jsonObject.getString("make_date");
+                                double price = jsonObject.getDouble("price");
+                                String image_url = jsonObject.getString("image_url");
+                                String description = jsonObject.getString("description");
+                                double rating = jsonObject.getDouble("rating");
+                                int num_available = jsonObject.getInt("num_available");
 
-                                CarAdmin car = new CarAdmin(id, carName, description, price, state, imageUrl, numberOfCars);
+                                CarAdmin car = new CarAdmin(id, model, make_date, price, image_url, description, rating, num_available);
                                 carList.add(car);
                             }
                             adapter.notifyDataSetChanged(); // Notify adapter about data change

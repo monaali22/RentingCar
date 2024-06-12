@@ -1,20 +1,19 @@
 package com.example.rentingcar;
 
-
-import static androidx.core.content.ContextCompat.startActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.util.Log;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -24,21 +23,17 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.RecyclerView;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 public class CarAdapter extends RecyclerView.Adapter<CarAdapter.CarViewHolder> {
     private Context context;
     private List<CarAdmin> cars;
-    private static final String DELETE_CAR_URL = "http://192.168.56.1/Android/V1/deleteCars.php";
+    private static final String DELETE_CAR_URL = "http://172.18.0.1/Android/V1/deleteCars.php";
     private RequestQueue requestQueue;
 
     public CarAdapter(Context context, List<CarAdmin> cars) {
@@ -59,25 +54,28 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.CarViewHolder> {
         final CarAdmin car = cars.get(position);
         CardView c = holder.c;
         ImageView image = c.findViewById(R.id.carImageView);
-        Glide.with(context).load(car.getImageUrl()).into(image);
+        Glide.with(context).load(car.getImage_url()).into(image);
 
         TextView txt = c.findViewById(R.id.carIdTextView);
         txt.setText(String.valueOf(car.getId()));
 
-        TextView carNameTextView = c.findViewById(R.id.carNameTextView);
-        carNameTextView.setText(car.getName());
+        TextView carNameTextView = c.findViewById(R.id.carModelTextView);
+        carNameTextView.setText(car.getModel());
 
-        TextView descriptionTextView = c.findViewById(R.id.descriptionTextView);
+        TextView descriptionTextView = c.findViewById(R.id.carDescriptionTextView);
         descriptionTextView.setText(car.getDescription());
 
-        TextView priceTextView = c.findViewById(R.id.priceTextView);
+        TextView priceTextView = c.findViewById(R.id.carPriceTextView);
         priceTextView.setText(String.valueOf(car.getPrice()));
 
-        TextView stateTextView = c.findViewById(R.id.stateTextView);
-        stateTextView.setText(String.valueOf(car.getState()));
+        TextView stateTextView = c.findViewById(R.id.carRatingTextView);
+        stateTextView.setText(String.valueOf(car.getRating()));
 
-        TextView numTextView = c.findViewById(R.id.numberOfCarsTextView);
-        numTextView.setText(String.valueOf(car.getNumberOfCars()));
+        TextView numTextView = c.findViewById(R.id.carNumAvailableTextView);
+        numTextView.setText(String.valueOf(car.getNum_available()));
+        TextView dateTextView = c.findViewById(R.id.carMakeDateTextView);
+        numTextView.setText(String.valueOf(car.getMake_date()));
+
 
         ImageButton deleteButton = c.findViewById(R.id.deleteButton);
         deleteButton.setOnClickListener(new View.OnClickListener() {
@@ -124,9 +122,9 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.CarViewHolder> {
                                 // Get the car at the specified position
                                 CarAdmin car = cars.get(position);
                                 // Decrement the number of cars for the current Car object
-                                car.setNumberOfCars(car.getNumberOfCars() - 1);
+                                car.setNum_available(car.getNum_available() - 1);
                                 // If the number of cars is now 0, set it to 0 and remove the car from the list
-                                if (car.getNumberOfCars() == 0) {
+                                if (car.getNum_available() == 0) {
                                     cars.remove(position);
                                     // Notify adapter about the removal
                                     notifyItemRemoved(position);
@@ -174,8 +172,8 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.CarViewHolder> {
 
     public void reduceCarCount(int position) {
         CarAdmin car = cars.get(position);
-        if (car.getNumberOfCars() > 1) {
-            car.setNumberOfCars(car.getNumberOfCars() - 1);
+        if (car.getNum_available() > 1) {
+            car.setNum_available(car.getNum_available() - 1);
             notifyItemChanged(position);
             Toast.makeText(context, "Car has been deleted", Toast.LENGTH_SHORT).show();
         } else {

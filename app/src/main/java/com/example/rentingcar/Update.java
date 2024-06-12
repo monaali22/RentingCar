@@ -1,32 +1,36 @@
 package com.example.rentingcar;
 
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class Update extends BaseActivityAdmin {
 
     private EditText updateIdEditText;
-    private EditText updateNameEditText;
+    private EditText updateModelEditText;
+    private EditText updateMakeDateEditText;
     private EditText updatePriceEditText;
-    private EditText updateStateEditText;
-    private EditText updateDescriptionEditText;
     private EditText updateImageEditText;
-    private EditText updateNumberOfCarsEditText;
+    private EditText updateDescriptionEditText;
+    private EditText updateRatingEditText;
+    private EditText updateNumAvailableEditText;
     private Button updateButton;
 
     @Override
@@ -34,39 +38,35 @@ public class Update extends BaseActivityAdmin {
         super.onCreate(savedInstanceState);
         getLayoutInflater().inflate(R.layout.activity_update_car, findViewById(R.id.content_frame));
 
-        // Initialize EditText fields and Button
         updateIdEditText = findViewById(R.id.updateIdEditText);
-        updateNameEditText = findViewById(R.id.updateNameEditText);
+        updateModelEditText = findViewById(R.id.updateModelEditText);
+        updateMakeDateEditText = findViewById(R.id.updateMakeDateEditText);
         updatePriceEditText = findViewById(R.id.updatePriceEditText);
-        updateStateEditText = findViewById(R.id.updateStateEditText);
-        updateDescriptionEditText = findViewById(R.id.updateDescriptionEditText);
         updateImageEditText = findViewById(R.id.updateImageEditText);
-        updateNumberOfCarsEditText = findViewById(R.id.updateNumberOfCarsEditText);
+        updateDescriptionEditText = findViewById(R.id.updateDescriptionEditText);
+        updateRatingEditText = findViewById(R.id.updateRatingEditText);
+        updateNumAvailableEditText = findViewById(R.id.updateNumAvailableEditText);
         updateButton = findViewById(R.id.updateButton);
 
-        // Set OnClickListener for the updateButton
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Get the updated values from EditText fields
                 final String updatedId = updateIdEditText.getText().toString();
-                final String updatedName = updateNameEditText.getText().toString();
+                final String updatedModel = updateModelEditText.getText().toString();
+                final String updatedMakeDate = updateMakeDateEditText.getText().toString();
                 final String updatedPrice = updatePriceEditText.getText().toString();
-                final String updatedState = updateStateEditText.getText().toString();
-                final String updatedDescription = updateDescriptionEditText.getText().toString();
                 final String updatedImage = updateImageEditText.getText().toString();
-                final String updatedNumberOfCars = updateNumberOfCarsEditText.getText().toString();
+                final String updatedDescription = updateDescriptionEditText.getText().toString();
+                final String updatedRating = updateRatingEditText.getText().toString();
+                final String updatedNumAvailable = updateNumAvailableEditText.getText().toString();
 
-                // Send POST request to the PHP script
-                String url = "http://192.168.56.1/Android/V1/updateCars.php";
+                String url = "http://172.18.0.1/Android/V1/updateCars.php";
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
-                                // Print the JSON response for debugging
                                 Log.d("JSON Response", response);
 
-                                // Handle response from the server
                                 try {
                                     JSONObject jsonObject = new JSONObject(response);
                                     boolean error = jsonObject.getBoolean("error");
@@ -86,26 +86,25 @@ public class Update extends BaseActivityAdmin {
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                // Handle error
                                 error.printStackTrace();
                                 Toast.makeText(Update.this, "Error updating record", Toast.LENGTH_SHORT).show();
                             }
                         }) {
                     @Override
                     protected Map<String, String> getParams() {
-                        // Parameters to be sent in the POST request
                         Map<String, String> params = new HashMap<>();
                         params.put("updatedId", updatedId);
-                        params.put("updatedName", updatedName);
+                        params.put("updatedModel", updatedModel);
+                        params.put("updatedMakeDate", updatedMakeDate);
                         params.put("updatedPrice", updatedPrice);
-                        params.put("updatedState", updatedState);
-                        params.put("updatedDescription", updatedDescription);
                         params.put("updatedImage", updatedImage);
-                        params.put("updatedNumberOfCars", updatedNumberOfCars);
+                        params.put("updatedDescription", updatedDescription);
+                        params.put("updatedRating", updatedRating);
+                        params.put("updatedNumAvailable", updatedNumAvailable);
                         return params;
                     }
                 };
-                // Add the request to the RequestQueue
+
                 Volley.newRequestQueue(Update.this).add(stringRequest);
             }
         });
