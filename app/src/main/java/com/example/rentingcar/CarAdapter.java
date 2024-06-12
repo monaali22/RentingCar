@@ -33,7 +33,7 @@ import java.util.Map;
 public class CarAdapter extends RecyclerView.Adapter<CarAdapter.CarViewHolder> {
     private Context context;
     private List<CarAdmin> cars;
-    private static final String DELETE_CAR_URL = "http://172.18.0.1/Android/V1/deleteCars.php";
+    private static final String DELETE_CAR_URL = "http://192.168.56.1/Android/V1/deleteCars.php";
     private RequestQueue requestQueue;
 
     public CarAdapter(Context context, List<CarAdmin> cars) {

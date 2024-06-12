@@ -7,8 +7,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -60,7 +58,7 @@ public class Update extends BaseActivityAdmin {
                 final String updatedRating = updateRatingEditText.getText().toString();
                 final String updatedNumAvailable = updateNumAvailableEditText.getText().toString();
 
-                String url = "http://172.18.0.1/Android/V1/updateCars.php";
+                String url = "http://192.168.56.1/Android/V1/updateCars.php";
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                         new Response.Listener<String>() {
                             @Override
